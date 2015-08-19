@@ -1,0 +1,44 @@
+﻿<Window x:Class="BeeHiveWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BeeHiveWPF"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Beehive Management System" Height="350" Width="525" Background="DarkOrange">
+    <Grid Margin="10">
+        <GroupBox x:Name="gbBees" Header="Worker Bee Assignments" Margin="0,10">
+            <Grid Margin="3">
+                <TextBlock Text="Job"/>
+                <ComboBox x:Name="cbJob" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,5,0"/>
+                <Button x:Name="btAssign" Content="Assign this job to a bee" Margin ="0,5" Grid.Row="2" Grid.ColumnSpan="3" Click="btAssign_Click"/>
+                <TextBlock Text="Shifts" Grid.Column="2"/>
+                <xctk:IntegerUpDown x:Name="iudShifts" Grid.Row="1" Grid.Column="2" Value="1" Minimum="1" Maximum="10"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+            </Grid>
+        </GroupBox>
+        <ScrollViewer x:Name="tbReport" Grid.Row="1" Grid.ColumnSpan="2" 
+                      Background="White" Foreground="Black" Margin="0,10,0,10"/>
+        <Button x:Name="btStartShift" Content="Work the &#xD;&#xA;next shift" Grid.Column="1"
+                Margin="10,10,0,10" VerticalAlignment="Stretch" FontSize="18" Focusable="False" 
+                FontWeight="SemiBold" Click="btStartShift_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+    </Grid>
+</Window>
