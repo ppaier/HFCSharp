@@ -20,57 +20,32 @@ namespace GoFishWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Game game;
+        Game game;
         public MainWindow()
         {
             InitializeComponent();
+            game = this.FindResource("game") as Game;
         }
 
         private void btStart_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(tbName.Text))
-            {
-                MessageBox.Show("Please enter your name!", "Can't start the game yet");
-                return;
-            }
-            game = new Game(tbName.Text, new List<string> { "Joe", "Bob" }, tbProgress);
-            btStart.IsEnabled = false;
-            tbName.IsEnabled = false;
-            btCard.IsEnabled = true;
-            UpdateForm();
+            game.StartGame();
         }
 
-
-        private void UpdateForm()
-        {
-            lbHand.Items.Clear();
-            foreach (String cardName in game.GetPlayerCardNames())
-                lbHand.Items.Add(cardName);
-            tbBooks.Content = game.DescribeBooks();
-            tbBooks.ScrollToEnd();
-            tbProgress.Content += game.DescribePlayerHands();
-            tbProgress.ScrollToEnd();
-        }
 
         private void btCard_Click(object sender, RoutedEventArgs e)
         {
-            tbProgress.Content = "";
-            if (lbHand.SelectedIndex < 0)
+            if (lbHand.SelectedIndex>=0)
             {
-                MessageBox.Show("Please select a card");
-                return;
+                game.PlayOneRound(lbHand.SelectedIndex);
             }
-            if (game.PlayOneRound(lbHand.SelectedIndex))
+        }
+
+        private void lbHand_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (lbHand.SelectedIndex >= 0)
             {
-                tbProgress.Content += "The winner is..." + game.GetWinnerName();
-                tbBooks.Content = game.DescribeBooks();
-                btCard.IsEnabled = false;
-                btStart.IsEnabled = true;
-                tbName.IsEnabled = true;
-            }
-            else
-            {
-                UpdateForm();
+                game.PlayOneRound(lbHand.SelectedIndex);
             }
         }
     }

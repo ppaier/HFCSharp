@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
-namespace GoFish
+namespace GoFishWPF
 {
     class Game
     {
@@ -10,6 +9,7 @@ namespace GoFish
         private TextBox tbProgress;
         private Dictionary<Values, Player> books;
         private Deck stock;
+        private int round;
 
         public Game(string playerName, IEnumerable<string> opponentNames, TextBox tbProgress)
         {
@@ -17,7 +17,7 @@ namespace GoFish
             Random random = new Random();
             players = new List<Player>();
             players.Add(new Player(playerName, random, tbProgress));
-
+            round = 1;
             foreach (string p in opponentNames)
                 players.Add(new Player(p, random, tbProgress));
 
@@ -73,6 +73,7 @@ namespace GoFish
 
         public bool PlayOneRound(int selectedPlayerCardIdx)
         {
+            tbProgress.Text += "Round: " + (round++) + Environment.NewLine;
             Values selectedPlayerValue = players[0].Peek(selectedPlayerCardIdx).Value;
             for(int i = 0; i < players.Count; ++i)
             {

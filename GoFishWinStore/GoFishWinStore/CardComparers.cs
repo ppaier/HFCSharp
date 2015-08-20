@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GoFishWPF
+namespace GoFishWinStore
 {
     class CardComparerBySuit : IComparer<Card>
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 
-namespace GoFishWPF
+namespace GoFishWinStore
 {
     class Game : INotifyPropertyChanged
     {
@@ -104,23 +103,25 @@ namespace GoFishWPF
             string description = "";
             foreach(Values value in books.Keys)
             {
-                description += books[value].Name + " has a book of " + Card.Plural(value) + Environment.NewLine;                 
+                description = books[value].Name + " has a book of " + Card.Plural(value) + Environment.NewLine + description;                 
             }
             return description;
         }
 
         public string DescribePlayerHands()
         {
-            string description = "";
-            for(int i=0; i < players.Count;++i)
+            string description = "The stock has " + stock.Count + " cards left." + Environment.NewLine;
+            for (int i=players.Count-1;i>=0 ;--i)
             {
                 description += players[i].Name + " has " + players[i].CardCount;
                 if (players[i].CardCount == 1)
-                    description += " card." + Environment.NewLine;
+                    description += " card.";
                 else
-                    description += " cards." + Environment.NewLine;
+                    description += " cards.";
+
+                if(i>0)
+                    description += Environment.NewLine;
             }
-            description += "The stock has " + stock.Count + " cards left.";
             return description;
         }
 
